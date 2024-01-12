@@ -2,11 +2,11 @@
 
 This is my personal website hosted on GitHub.
 
-Visit the site: [Your Name - Personal Website](https://yourusername.github.io)
+Visit the site: [Your Name - Personal Website](https://Flintmcgy.github.io)
 
 ## About Me
 
-Write a brief introduction about yourself here.
+I am Ascostic
 
 ## License
 
