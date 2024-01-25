@@ -11,65 +11,73 @@
       line-height: 1.6;
       margin: 0;
       padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Ensure the body takes at least the full viewport height */
     }
-  
+
     header {
       background-color: #1f2224;
-      height: 100px;
+      height: 80px; /* Reduced height for smaller screens */
       display: flex;
       justify-content: center;
       align-items: center;
     }
-  
+
     header h1 {
       color: rgb(255, 255, 255);
-      font-size: 3rem;
+      font-size: 2rem; /* Adjusted font size for smaller screens */
     }
-  
+
     nav {
       background-color: #141414;
       padding: 1rem;
     }
-  
+
     nav ul {
       list-style-type: none;
       display: flex;
-      justify-content: space-around;
+      flex-wrap: wrap; /* Allow navigation items to wrap on smaller screens */
+      justify-content: center;
     }
-  
+
     nav ul li a {
       color: white;
       text-decoration: none;
       padding: 0.5rem 1rem;
     }
-  
+
     nav ul li a:hover {
       background-color: #226699;
     }
-  
+
     main {
-      padding: 2rem;
+      padding: 1rem; /* Adjusted padding for smaller screens */
+      flex: 1; /* Allow the main section to grow to fill the remaining space */
     }
-  
+
     main section {
-      margin-bottom: 2rem;
+      margin-bottom: 1rem; /* Adjusted margin for smaller screens */
     }
-  
+
     main h2 {
       color: #000000;
       margin-bottom: 1rem;
+      font-size: 1.5rem; /* Adjusted font size for smaller screens */
     }
-  
+
     footer p {
       color: rgb(255, 255, 255);
     }
-  
+
     footer {
       background-color: #141414;
-      padding: 3rem;
+      padding: 1rem;
       text-align: center;
+      color: rgb(255, 255, 255);
+      margin-top: auto; /* Push the footer to the bottom */
     }
-  
+
     #schedule {
       max-width: 600px;
       margin: 20px auto;
@@ -77,47 +85,47 @@
       padding: 20px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-  
+
     h1 {
       color: #333;
-      font-size: 2rem;
+      font-size: 1.5rem; /* Adjusted font size for smaller screens */
       margin-bottom: 20px;
     }
-  
+
     .current-period,
     .next-period,
     .time-left {
       margin-top: 10px;
-      font-size: 1.2rem;
+      font-size: 1rem; /* Adjusted font size for smaller screens */
     }
-  
+
     .current-period,
     .next-period {
       color: #2ecc71;
       font-weight: bold;
     }
-  
+
     .time-left {
       color: #2ecc71;
     }
-  
+
     .schedule-list {
       text-align: left;
       margin-top: 20px;
       list-style: none;
       padding: 0;
     }
-  
+
     .schedule-list li {
       margin-bottom: 10px;
       border-bottom: 1px solid #ddd;
       padding-bottom: 10px;
     }
-  
+
     .schedule-list li:last-child {
       border-bottom: none;
     }
-  
+
     .schedule-list li span {
       font-weight: bold;
       margin-right: 10px;

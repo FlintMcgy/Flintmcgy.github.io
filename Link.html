@@ -16,57 +16,58 @@
       flex-direction: column;
       min-height: 100vh; /* Ensure the body takes at least the full viewport height */
     }
-
+    
     header {
       background-color: #1f2224;
-      height: 100px;
+      height: 80px; /* Reduced height for smaller screens */
       display: flex;
       justify-content: center;
       align-items: center;
     }
-
+    
     header h1 {
       color: rgb(255, 255, 255);
-      font-size: 3rem;
+      font-size: 2rem; /* Adjusted font size for smaller screens */
     }
-
+    
     nav {
       background-color: #141414;
       padding: 1rem;
     }
-
+    
     nav ul {
       list-style-type: none;
       display: flex;
-      justify-content: space-around;
+      flex-wrap: wrap; /* Allow navigation items to wrap on smaller screens */
+      justify-content: center;
     }
-
+    
     nav ul li a {
       color: white;
       text-decoration: none;
       padding: 0.5rem 1rem;
     }
-
+    
     nav ul li a:hover {
       background-color: #226699;
     }
-
+    
     main {
-      padding: 2rem;
+      padding: 1rem; /* Adjusted padding for smaller screens */
       flex: 1; /* Allow the main section to grow to fill the remaining space */
     }
-
+    
     main section {
-      margin-bottom: 2rem;
+      margin-bottom: 1rem; /* Adjusted margin for smaller screens */
     }
-
+    
     main h2 {
       color: #333;
       font-size: 1.5rem;
       font-weight: bold; /* Bold font weight */
       margin-bottom: 10px;
     }
-
+    
     footer {
       background-color: #141414;
       padding: 1rem;
@@ -74,12 +75,12 @@
       color: rgb(255, 255, 255);
       margin-top: auto; /* Push the footer to the bottom */
     }
-
+    
     /* Password Protection */
     #family-section {
       display: none;
     }
-
+    
     #password-modal {
       display: none;
       position: fixed;
@@ -91,7 +92,7 @@
       justify-content: center;
       align-items: center;
     }
-
+    
     #password-modal-container {
       background-color: #fff;
       padding: 20px;
@@ -99,14 +100,14 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       text-align: center;
     }
-
+    
     #password-modal input {
       padding: 10px;
       font-size: 16px;
       margin-bottom: 10px;
       width: 80%; /* Adjust the width as needed */
     }
-
+    
     #password-modal button {
       padding: 10px 20px;
       font-size: 16px;
@@ -116,11 +117,11 @@
       border: none;
       border-radius: 5px;
     }
-
+    
     #password-modal button:hover {
       background-color: #2980b9;
     }
-
+    
     /* Links Section Styles */
     .links-section {
       background-color: #f4f4f4;
@@ -128,34 +129,34 @@
       border-radius: 10px;
       margin-bottom: 20px;
     }
-
+    
     .links-list {
       list-style: none;
       padding: 0;
     }
-
+    
     .link-item {
       margin-bottom: 10px;
       cursor: pointer; /* Make the entire list item clickable */
     }
-
+    
     .link-title {
       color: #333;
       font-size: 1.5rem;
       font-weight: bold; /* Bold font weight */
       margin-bottom: 5px;
     }
-
+    
     .link-url {
       color: #3498db;
       text-decoration: none;
       font-size: 1rem;
     }
-
+    
     .link-url:hover {
       text-decoration: underline;
     }
-
+    
     /* Styling for individual links */
     .link-container {
       background-color: #fff;
@@ -163,7 +164,7 @@
       padding: 15px;
       margin-bottom: 15px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+    }  
   </style>
   <title>Links</title>
 </head>

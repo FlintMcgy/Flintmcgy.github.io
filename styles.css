@@ -74,14 +74,14 @@ body {
 
 .animated-text h2 {
   color: #ffffff;
-  font-size: 5rem;
+  font-size: 3rem; /* Adjusted font size for smaller screens */
   margin: 0;
-  animation: fadeInUp 1s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Adjusted easing for smoother animation */
+  animation: fadeInUp 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
 header {
   background-color: #1f2224;
-  height: 100px;
+  height: 80px; /* Reduced height for smaller screens */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,7 +89,7 @@ header {
 
 header h1 {
   color: rgb(255, 255, 255);
-  font-size: 3rem;
+  font-size: 2rem; /* Adjusted font size for smaller screens */
 }
 
 nav {
@@ -100,7 +100,8 @@ nav {
 nav ul {
   list-style-type: none;
   display: flex;
-  justify-content: space-around;
+  flex-wrap: wrap; /* Allow navigation items to wrap on smaller screens */
+  justify-content: center;
 }
 
 nav ul li a {
@@ -114,16 +115,17 @@ nav ul li a:hover {
 }
 
 main {
-  padding: 2rem;
+  padding: 1rem; /* Adjusted padding for smaller screens */
 }
 
 main section {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem; /* Adjusted margin for smaller screens */
 }
 
 main h2 {
   color: #000000;
-  margin-bottom: 1rem;
+  font-size: 1.5rem; /* Adjusted font size for smaller screens */
+  margin-bottom: 0.5rem; /* Adjusted margin for smaller screens */
 }
 
 footer p {
@@ -132,6 +134,6 @@ footer p {
 
 footer {
   background-color: #141414;
-  padding: 3rem;
+  padding: 2rem; /* Adjusted padding for smaller screens */
   text-align: center;
 }
