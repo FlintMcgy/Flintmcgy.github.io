@@ -130,7 +130,7 @@
       font-weight: bold;
       margin-right: 10px;
     }
-  </style>  
+  </style>
   <title>Schedule</title>
 </head>
 <body>
@@ -156,8 +156,9 @@
       <div id="next-period" class="next-period"></div>
       <div id="time-left" class="time-left"></div>
 
-      <h2>Today's Schedule</h2>
+      <h2 id="todays-schedule-heading">Today's Schedule</h2>
       <ul id="schedule-list" class="schedule-list"></ul>
+
     </div>
   </main>
 
@@ -165,74 +166,104 @@
     <p>Flint &copy; 2024</p>
   </footer>
 
-  <script>
+  <script defer>
+    console.log('Script is Running!')
+
+    let currentDay;
+    let currentTime;
+
+    const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+
     // Define your schedule data
     const schedule = {
       Monday: [
-        { start: 475, end: 520, subject: 'Betriebsysteme Netwerke' },
-        { start: 520, end: 565, subject: 'Betriebsysteme Netwerke' },
-        { start: 580, end: 625, subject: 'Poltik' },
-        { start: 625, end: 670, subject: 'Projekt Organisation' },
-        { start: 685, end: 730, subject: 'Projekt Organisation' },
-        { start: 730, end: 775, subject: 'Datenbanken' },
-        { start: 790, end: 835, subject: 'Datenbanken' },
-      ],
-      Tuesday: [
-        { start: 475, end: 520, subject: 'Maths' },
-        { start: 520, end: 565, subject: 'Maths' },
-        { start: 580, end: 625, subject: 'Wirtschaftslehre' },
-        { start: 625, end: 670, subject: 'Wirtschaftslehre' },
-        { start: 685, end: 730, subject: 'Elektrotechnik' },
-        { start: 730, end: 775, subject: 'Elektrotechnik' },
-      ],
-      Wednesday: [
-        { start: 520, end: 565, subject: 'Software A' },
-        { start: 580, end: 625, subject: 'Software A' },
-        { start: 625, end: 670, subject: 'Datenbanken' },
-        { start: 685, end: 730, subject: 'Datenbanken' },
-        { start: 730, end: 775, subject: 'Datenbanken' },
-      ],
-      Thursday: [
-        { start: 475, end: 520, subject: 'Englisch' },
-        { start: 520, end: 565, subject: 'Englisch' },
+        { start: 475, end: 520, subject: 'Elektrotechnik' },
+        { start: 520, end: 565, subject: 'Elektrotechnik' },
         { start: 580, end: 625, subject: 'Sport' },
         { start: 625, end: 670, subject: 'Sport' },
-        { start: 685, end: 730, subject: 'Textgestaltung' },
-        { start: 730, end: 775, subject: 'Textgestaltung' },
-        { start: 790, end: 835, subject: 'Betriebsysteme Netwerke' },
-        { start: 835, end: 880, subject: 'Betriebsysteme Netwerke' },
+        { start: 685, end: 730, subject: 'Religion' },
+        { start: 730, end: 775, subject: 'Religion' },
+      ],
+      Tuesday: [
+        { start: 475, end: 520, subject: 'Datenbanken' },
+        { start: 520, end: 565, subject: 'Datenbanken' },
+        { start: 580, end: 625, subject: 'Datenbanken' },
+        { start: 625, end: 670, subject: 'Datenbanken' },
+        { start: 685, end: 730, subject: 'Betriebssyteme-Netzwerke' },
+        { start: 730, end: 775, subject: 'Betriebssyteme-Netzwerke' },
+        { start: 790, end: 835, subject: 'Software-A' },
+        { start: 835, end: 880, subject: 'Software-A' },
+      ],
+      Wednesday: [
+        { start: 475, end: 520, subject: 'Englisch' },
+        { start: 520, end: 565, subject: 'Englisch' },
+        { start: 580, end: 625, subject: 'Deutsch-Kommunikation' },
+        { start: 625, end: 670, subject: 'Deutsch-Kommunikation' },
+        { start: 685, end: 730, subject: 'Wirtschaftslehre' },
+        { start: 730, end: 775, subject: 'Wirtschaftslehre' },
+        { start: 790, end: 835, subject: 'Politik' },
+      ],
+      Thursday: [
+        { start: 475, end: 520, subject: 'Mathematik' },
+        { start: 520, end: 565, subject: 'Mathematik' },
+        { start: 580, end: 625, subject: 'Textgestaltung' },
+        { start: 625, end: 670, subject: 'Textgestaltung' },
+        { start: 685, end: 730, subject: 'Software-B' },
+        { start: 730, end: 775, subject: 'Software-B' },
       ],
       Friday: [
-        { start: 580, end: 625, subject: 'Deutschkommunikation' },
-        { start: 625, end: 670, subject: 'Deutschkommunikation' },
-        { start: 685, end: 730, subject: 'Software B' },
-        { start: 730, end: 775, subject: 'Software B' },
-        { start: 790, end: 835, subject: 'Betriebsysteme Netwerke' },
-        { start: 835, end: 880, subject: 'Betriebsysteme Netwerke' },
+        { start: 475, end: 520, subject: 'Projekt-organisation' },
+        { start: 520, end: 565, subject: 'Projekt-organisation' },
+        { start: 580, end: 625, subject: 'Betriebssyteme-Netzwerke' },
+        { start: 625, end: 670, subject: 'Betriebssyteme-Netzwerke' },
+        { start: 685, end: 730, subject: 'Betriebssyteme-Netzwerke' },
+        { start: 730, end: 775, subject: 'Betriebssyteme-Netzwerke' },
       ],
     };
-  
-    // Function to update the schedule display
+
+    function initialize() {
+      const now = new Date();
+      currentDay = daysOfWeek[now.getDay() - 1]; // Adjusted to get the correct current day
+      currentTime = now.getHours() * 60 + now.getMinutes();
+
+      document.getElementById('todays-schedule-heading').textContent = `${currentDay}'s Schedule`;
+
+      setInterval(() => {
+        const now = new Date();
+        currentTime = now.getHours() * 60 + now.getMinutes();
+        updateStatus(currentDay, currentTime);
+      }, 1000);
+
+      updateNextPeriodStartingIn(currentDay, currentTime);
+      updateSchedule(currentDay);
+      console.log('Script has Run!');
+    }
+
     function updateSchedule(day) {
       const scheduleList = document.getElementById('schedule-list');
-      scheduleList.innerHTML = ''; // Clear previous schedule
-  
-      // Populate today's schedule
-      schedule[day].forEach(period => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${formatTime(period.start)} - ${formatTime(period.end)}: ${period.subject}`;
-        scheduleList.appendChild(listItem);
-      });
+      scheduleList.innerHTML = '';
+
+      const todaySchedule = schedule[day];
+
+      if (todaySchedule && todaySchedule.length > 0) {
+        todaySchedule.forEach((period, index) => {
+          const listItem = document.createElement('li');
+          listItem.textContent = `${formatTime(period.start)} - ${formatTime(period.end)}: ${period.subject}`;
+          scheduleList.appendChild(listItem);
+        });
+      } else {
+        const noClassesMessage = `<li>No classes on ${day}${todaySchedule ? 's' : ''}</li>`;
+        scheduleList.innerHTML = noClassesMessage;
+      }
     }
-  
-    // Function to update the current period, next period, and time left
+
     function updateStatus(day, currentTime) {
       const currentPeriodElem = document.getElementById('current-period');
       const nextPeriodElem = document.getElementById('next-period');
       const timeLeftElem = document.getElementById('time-left');
-  
+
       let currentPeriod, nextPeriod, timeLeft;
-  
+
       for (const period of schedule[day]) {
         if (currentTime >= period.start && currentTime < period.end) {
           currentPeriod = period;
@@ -241,30 +272,40 @@
           break;
         }
       }
-  
+
       if (currentPeriod) {
         currentPeriodElem.innerHTML = `<span class="current-period" style="color: green; font-weight: bold;">Current Period: ${currentPeriod.subject}</span><br><span class="current-period" style="color: green; font-weight: bold;">Current Period Ending in: ${formatTimeWithWords(timeLeft)}</span>`;
       } else {
-        currentPeriodElem.textContent = 'No ongoing period';
+        currentPeriodElem.innerHTML = '<span class="current-period" style="color: green; font-weight: bold;">No ongoing period</span>';
       }
-  
-      // Always update the "Next Period" and "Next Period Starting in"
+
       nextPeriod = nextPeriod || findNextPeriod(day, currentTime);
-      updateNextPeriodStartingIn(day, currentTime, nextPeriod);
+      if (nextPeriod) {
+        updateNextPeriodStartingIn(day, currentTime, nextPeriod);
+      } else {
+        nextPeriodElem.innerHTML = '<span class="next-period" style="color: red; font-weight: bold;">No upcoming period</span>';
+        timeLeftElem.textContent = '';
+      }
     }
-  
-    // Function to update the time left until the next period
+
     function updateNextPeriodStartingIn(day, currentTime, nextPeriod) {
       const nextPeriodElem = document.getElementById('next-period');
       const timeLeftElem = document.getElementById('time-left');
-  
-      const timeTillNextPeriod = nextPeriod.start - currentTime;
-  
-      nextPeriodElem.innerHTML = `<span class="next-period" style="color: red; font-weight: bold;">Next Period: ${nextPeriod.subject}</span><br><span class="next-period" style="color: red; font-weight: bold;">Next Period Starting in: ${formatTimeWithWords(timeTillNextPeriod)}</span>`;
-      timeLeftElem.textContent = '';
+
+      if (nextPeriod) {
+        const timeTillNextPeriod = nextPeriod.start - currentTime;
+        const formattedTimeLeft = formatTimeWithDynamicWords(timeTillNextPeriod);
+
+        document.getElementById('todays-schedule-heading').textContent = `${currentDay}'s Schedule`;
+        document.getElementById('next-period').innerHTML = `<span class="next-period" style="color: red; font-weight: bold;">Next Period: ${nextPeriod.subject}</span><br><span class="next-period" style="color: red; font-weight: bold;">Next Period Starting in: ${formattedTimeLeft}</span>`;
+        document.getElementById('time-left').textContent = ''; // Clear the previous time left display
+
+      } else {
+        nextPeriodElem.innerHTML = '<span class="next-period" style="color: red; font-weight: bold;">No upcoming period</span>';
+        timeLeftElem.innerHTML = ''; // Clear the previous time left display
+      }
     }
-  
-    // Function to find the next period based on current time
+
     function findNextPeriod(day, currentTime) {
       const periods = schedule[day];
       for (const period of periods) {
@@ -272,64 +313,70 @@
           return period;
         }
       }
-      // If there is no next period, return the first period of the next day
       return schedule[getNextDay(day)][0];
     }
-  
-    // Function to get the next day
+
     function getNextDay(currentDay) {
-      const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
       const currentIndex = daysOfWeek.indexOf(currentDay);
       return daysOfWeek[(currentIndex + 1) % daysOfWeek.length];
     }
-  
-    // Function to format time in Hour:Minutes format with words
-    function formatTimeWithWords(minutes) {
-      const hours = Math.floor(minutes / 60);
+
+    function formatTimeWithDynamicWords(minutes) {
+      const days = Math.floor(minutes / (60 * 24));
+      const hours = Math.floor((minutes % (60 * 24)) / 60);
       const mins = minutes % 60;
-  
+
       let formattedTime = '';
-  
+
+      if (days > 0) {
+        formattedTime += `${days} Day${days > 1 ? 's' : ''} `;
+      }
+
+      if (hours > 0 || (days > 0 && mins > 0)) {
+        formattedTime += `${hours} Hour${hours > 1 ? 's' : ''} `;
+      }
+
+      if (mins > 0 || (days === 0 && hours === 0)) {
+        formattedTime += `${mins} Minute${mins > 1 ? 's' : ''}`;
+      }
+
+      return formattedTime.trim();
+    }
+
+    function formatTimeWithWords(minutes) {
+      const days = Math.floor(minutes / (60 * 24));
+      const hours = Math.floor((minutes % (60 * 24)) / 60);
+      const mins = minutes % 60;
+
+      let formattedTime = '';
+
+      if (days > 0) {
+        formattedTime += `${days} Day${days > 1 ? 's' : ''} `;
+      }
+
       if (hours > 0) {
         formattedTime += `${hours} Hour${hours > 1 ? 's' : ''} `;
       }
-  
+
       if (mins > 0) {
         formattedTime += `${mins} Minute${mins > 1 ? 's' : ''}`;
       }
-  
+
       return formattedTime.trim();
     }
-  
-    // Function to format time in Hour:Minutes format
+
     function formatTime(minutes) {
       const hours = Math.floor(minutes / 60);
       const mins = minutes % 60;
       return `${padZero(hours)}:${padZero(mins)}`;
     }
-  
-    // Function to pad zero for single-digit numbers
+
     function padZero(num) {
       return num < 10 ? `0${num}` : num;
     }
-  
-    // Get the current day and time
-    const now = new Date();
-    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const currentDayIndex = now.getDay(); // Get the index of the current day (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
-    const currentDay = daysOfWeek[currentDayIndex];
-    const currentTime = now.getHours() * 60 + now.getMinutes(); // in minutes since midnight
-  
-    // Call functions to update the schedule and status
-    updateSchedule(currentDay);
-    updateStatus(currentDay, currentTime);
-  
-    // Update every minute
-    setInterval(() => {
-      const now = new Date();
-      const currentTime = now.getHours() * 60 + now.getMinutes();
-      updateStatus(currentDay, currentTime);
-    }, 60000); // 60000 milliseconds = 1 minute
-  </script>  
+
+    // Initialize the script
+    initialize();
+  </script>
 </body>
 </html>
